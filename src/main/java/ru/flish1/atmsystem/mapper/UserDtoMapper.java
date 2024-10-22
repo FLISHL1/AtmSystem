@@ -4,6 +4,9 @@ import org.springframework.stereotype.Component;
 import ru.flish1.atmsystem.dto.UserDto;
 import ru.flish1.atmsystem.entity.User;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Component
 public class UserDtoMapper {
     public User userDtoToUser(UserDto userDto){
@@ -22,4 +25,12 @@ public class UserDtoMapper {
                 user.getProfile()
         );
     }
+    public List<UserDto> usersToUsersDto(List<User> users){
+        return users.stream().map(this::userToUserDto).collect(Collectors.toList());
+    }
+
+    public List<User> usersDtoToUsers(List<UserDto> usersDto){
+        return usersDto.stream().map(this::userDtoToUser).collect(Collectors.toList());
+    }
+
 }

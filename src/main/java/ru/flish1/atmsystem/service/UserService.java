@@ -6,8 +6,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import ru.flish1.atmsystem.dto.UserDto;
 import ru.flish1.atmsystem.entity.User;
+import ru.flish1.atmsystem.exception.UserNotFoundException;
 import ru.flish1.atmsystem.mapper.UserDtoMapper;
 import ru.flish1.atmsystem.repository.UserRepository;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -23,5 +26,24 @@ public class UserService {
         user = userRepository.save(user);
         log.debug("Пользователь сохранен \n{}", user);
         return userDtoMapper.userToUserDto(user);
+    }
+
+    public List<UserDto> getAll() {
+        List<User> users = userRepository.findAll();
+        return userDtoMapper.usersToUsersDto(users);
+    }
+
+    public UserDto getByPassport(String seriesPassport, String numberPassport) {
+        User user = userRepository.findByPassport(seriesPassport, numberPassport).orElseThrow(() -> {
+            UserNotFoundException exception = new UserNotFoundException("Пользователь с паспортом " + seriesPassport + " " + numberPassport + " не найден");
+            log.error(exception.getMessage());
+            return exception;
+        });
+        return userDtoMapper.userToUserDto(user);
+    }
+
+    @Transactional
+    public void removeByPassport(String seriesPassport, String numberPassport) {
+        userRepository.deleteByPassport(seriesPassport, numberPassport);
     }
 }
