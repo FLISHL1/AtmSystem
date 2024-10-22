@@ -1,17 +1,7 @@
-package ru.flish1.atmsystem.views;
+package ru.flish1.atmsystem.view;
 
-import org.flishl1.controllers.ConsoleUserInput;
-import org.flishl1.controllers.UserInput;
-import org.flishl1.entity.User;
-import org.flishl1.services.AuthService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.util.List;
-
-
-public class ConsoleUserInterface implements UserInterface {
-    private static final Logger log = LoggerFactory.getLogger(ConsoleUserInterface.class);
+public class ConsoleUserInterface {
+    /*private static final Logger log = LoggerFactory.getLogger(ConsoleUserInterface.class);
     private final AuthService authService;
     private final UserInput inputHandler;
 
@@ -98,5 +88,5 @@ public class ConsoleUserInterface implements UserInterface {
 
     private void message(String message, List<String> listArgs) {
         System.out.printf(message + "\n", listArgs.toArray());
-    }
+    }*/
 }

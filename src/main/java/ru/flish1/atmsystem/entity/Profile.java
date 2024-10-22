@@ -2,49 +2,29 @@ package ru.flish1.atmsystem.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+import jakarta.validation.constraints.NotNull;
+import lombok.*;
 
 @Embeddable
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Profile {
 
-    private Integer snils;
+    @Column(name = "snils")
+    private String snils;
 
 
     @Column(name = "number_passport", nullable = false)
-    private Integer numberPassport;
+    @NotNull
+    private String numberPassport;
 
     @Column(name = "series_passport", nullable = false)
-    private Integer seriesPassport;
+    @NotNull
+    private String seriesPassport;
 
-    public Integer getSnils() {
-        return snils;
-    }
-
-    public void setSnils(Integer snils) {
-        this.snils = snils;
-    }
-
-    public Integer getNumberPassport() {
-        return numberPassport;
-    }
-
-    public void setNumberPassport(Integer numberPassport) {
-        this.numberPassport = numberPassport;
-    }
-
-    public Integer getSeriesPassport() {
-        return seriesPassport;
-    }
-
-    public void setSerialPassport(Integer seriesPassport) {
-        this.seriesPassport = seriesPassport;
-    }
-
-    @Override
-    public String toString() {
-        return "Profile{" +
-                "snils=" + snils +
-                ", numberPassport=" + numberPassport +
-                ", seriesPassport=" + seriesPassport +
-                '}';
-    }
 }
+

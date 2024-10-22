@@ -1,0 +1,13 @@
+services:
+  postgres:
+    image: postgres:13.0
+    container_name: atm_db
+    volumes:
+      - type: volume
+        target: /var/lib/postgresql/dataConfig
+    environment:
+      POSTGRES_DB: atm
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"

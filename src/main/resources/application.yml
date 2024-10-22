@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: AtmSystemMaven
+  datasource:
+    url: jdbc:postgresql://localhost:5432/atm
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      schema: atm
+  flyway:
+    locations: classpath:db/migration
+    enabled: true
+    default-schema: ${spring.datasource.hikari.schema}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+  shell:
+    interactive:
+      enabled: true
+logging:
+  level:
+    ru:
+      flish1: debug
+

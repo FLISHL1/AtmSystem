@@ -2,90 +2,48 @@ package ru.flish1.atmsystem.entity;
 
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 
 @Entity
 @Table(name = "accounts")
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "title")
     private String title;
 
-    private Double balance = 0.0;
+    @Column(name = "balance")
+    private BigDecimal balance;
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @PrimaryKeyJoinColumn
+    @PrimaryKeyJoinColumn(name = "holder_id")
     private User holder;
 
-    @Column(nullable = false)
+    @Column(name = "pin", nullable = false)
     private String pin;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @PrimaryKeyJoinColumn(name = "bank_id")
+    @ColumnDefault(value = "1")
+    private Bank bank;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "account")
     private List<AccountTransaction> accountTransactions = new ArrayList<>();
 
 
-    public Account() {
-    }
-
-    public Account(Long id, String title, Double balance, User holder, String pin, List<AccountTransaction> accountTransactions) {
-        this.id = id;
-        this.title = title;
-        this.balance = balance;
-        this.holder = holder;
-        this.pin = pin;
-        this.accountTransactions = accountTransactions;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public Double getBalance() {
-        return balance;
-    }
-
-    public void setBalance(Double balance) {
-        this.balance = balance;
-    }
-
-    public User getHolder() {
-        return holder;
-    }
-
-    public void setHolder(User holder) {
-        this.holder = holder;
-    }
-
-    public String getPin() {
-        return pin;
-    }
-
-    public void setPin(String pin) {
-        this.pin = pin;
-    }
-
-    public List<AccountTransaction> getAccountTransactions() {
-        return accountTransactions;
-    }
-
-    public void setAccountTransactions(List<AccountTransaction> accountTransactions) {
-        this.accountTransactions = accountTransactions;
-    }
 }
