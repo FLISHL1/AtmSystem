@@ -19,8 +19,13 @@ spring:
   shell:
     interactive:
       enabled: true
+  security:
+    atm:
+      hash-algorithm: SHA-256
 logging:
   level:
     ru:
       flish1: debug
+
+
 

@@ -29,12 +29,12 @@ public class UserServiceTest {
     public void testCreate() {
         // Подготовка данных
         Profile profile = new Profile("123-456-789 01", "123456", "1234");
-        UserDto userDto = UserDto.builder()
-                .firstName("John")
-                .lastName("Doe")
-                .secondName("Smith")
-                .profile(profile)
-                .build();
+        UserDto userDto = new UserDto(
+                "John",
+                "Doe",
+                "Smith",
+                profile
+        );
 
         User user = new User();
         user.setId(1L);
@@ -52,11 +52,11 @@ public class UserServiceTest {
         UserDto createdUserDto = userService.create(userDto);
 
         // Проверка результатов
-        assertEquals("John", createdUserDto.getFirstName());
-        assertEquals("Doe", createdUserDto.getLastName());
-        assertEquals("Smith", createdUserDto.getSecondName());
-        assertEquals(profile.getNumberPassport(), createdUserDto.getProfile().getNumberPassport());
-        assertEquals(profile.getSeriesPassport(), createdUserDto.getProfile().getSeriesPassport());
-        assertEquals(profile.getSnils(), createdUserDto.getProfile().getSnils());
+        assertEquals("John", createdUserDto.firstName());
+        assertEquals("Doe", createdUserDto.lastName());
+        assertEquals("Smith", createdUserDto.secondName());
+        assertEquals(profile.getNumberPassport(), createdUserDto.profile().getNumberPassport());
+        assertEquals(profile.getSeriesPassport(), createdUserDto.profile().getSeriesPassport());
+        assertEquals(profile.getSnils(), createdUserDto.profile().getSnils());
     }
 }

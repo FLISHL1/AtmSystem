@@ -9,18 +9,21 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class UserDtoMapperTest {
 
-    private final UserDtoMapper userDtoMapper = new UserDtoMapper();
+    private final UserDtoMapper userDtoMapper;
+
+    public UserDtoMapperTest(UserDtoMapper userDtoMapper) {
+        this.userDtoMapper = userDtoMapper;
+    }
 
     @Test
     public void testUserDtoToUser() {
         // Подготовка данных
         Profile profile = new Profile("123-456-789 01", "123456", "1234");
-        UserDto userDto = UserDto.builder()
-                .firstName("John")
-                .lastName("Doe")
-                .secondName("Smith")
-                .profile(profile)
-                .build();
+        UserDto userDto = new UserDto(
+                "John",
+                "Doe",
+                "Smith",
+                profile);
 
         // Вызов метода
         User user = userDtoMapper.userDtoToUser(userDto);
@@ -46,9 +49,9 @@ public class UserDtoMapperTest {
         UserDto userDto = userDtoMapper.userToUserDto(user);
 
         // Проверка результатов
-        assertEquals("John", userDto.getFirstName());
-        assertEquals("Doe", userDto.getLastName());
-        assertEquals("Smith", userDto.getSecondName());
-        assertEquals(profile, userDto.getProfile());
+        assertEquals("John", userDto.firstName());
+        assertEquals("Doe", userDto.lastName());
+        assertEquals("Smith", userDto.secondName());
+        assertEquals(profile, userDto.profile());
     }
 }

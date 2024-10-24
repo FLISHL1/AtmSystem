@@ -19,6 +19,9 @@ spring:
   shell:
     interactive:
       enabled: false
+  security:
+    atm:
+      hash-algorithm: MD5
 logging:
   level:
     ru:

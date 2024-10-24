@@ -33,14 +33,19 @@ public class UserService {
         return userDtoMapper.usersToUsersDto(users);
     }
 
-    public UserDto getByPassport(String seriesPassport, String numberPassport) {
-        User user = userRepository.findByPassport(seriesPassport, numberPassport).orElseThrow(() -> {
+    public UserDto getDtoByPassport(String seriesPassport, String numberPassport) {
+        User user = getByPassport(seriesPassport, numberPassport);
+        return userDtoMapper.userToUserDto(user);
+    }
+
+    public User getByPassport(String seriesPassport, String numberPassport) {
+        return userRepository.findByPassport(seriesPassport, numberPassport).orElseThrow(() -> {
             UserNotFoundException exception = new UserNotFoundException("Пользователь с паспортом " + seriesPassport + " " + numberPassport + " не найден");
             log.error(exception.getMessage());
             return exception;
         });
-        return userDtoMapper.userToUserDto(user);
     }
+
 
     @Transactional
     public void removeByPassport(String seriesPassport, String numberPassport) {
